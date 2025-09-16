@@ -1,4 +1,5 @@
 library(shiny)
+library(stringi)
 
 generate_story <- function(noun, verb, adjective, adverb) {
   glue::glue(
@@ -28,6 +29,9 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   story <- eventReactive(input$submit, {
+    cat(strrep("-", 20), "\n", file = stderr())
+    cat('Attempting to generate story\n', file = stderr())
+    cat(strrep("-", 20), "\n", file = stderr())
     generate_story(input$noun1, input$verb, input$adjective, input$adverb)
   })
   output$story <- renderText({
